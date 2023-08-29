@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Livewire\ContactForm;
+use App\Http\Livewire\Confirm;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ContactForm::class)->name('contact');
+Route::get('/contacts/confirm', Confirm::class)->name('confirm');
+Route::post('/thanks', [ContactController::class, 'store']);
+
+Route::get('/contacts/management', [ContactController::class, 'management']);
+Route::delete('/contacts/delete', [ContactController::class, 'destroy']);
+Route::get('/contacts/search', [ContactController::class, 'search']);
